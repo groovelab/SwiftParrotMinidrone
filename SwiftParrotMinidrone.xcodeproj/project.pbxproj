@@ -8,20 +8,37 @@
 
 /* Begin PBXBuildFile section */
 		0E1AB89D1FAC1B5B002520F9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB89C1FAC1B5B002520F9 /* AppDelegate.swift */; };
-		0E1AB89F1FAC1B5B002520F9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB89E1FAC1B5B002520F9 /* ViewController.swift */; };
 		0E1AB8A21FAC1B5B002520F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E1AB8A01FAC1B5B002520F9 /* Main.storyboard */; };
 		0E1AB8A41FAC1B5B002520F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E1AB8A31FAC1B5B002520F9 /* Assets.xcassets */; };
 		0E1AB8A71FAC1B5B002520F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E1AB8A51FAC1B5B002520F9 /* LaunchScreen.storyboard */; };
+		0E1AB8AF1FAC1BA5002520F9 /* ARSDK3_iOS_3_13_0 in Resources */ = {isa = PBXBuildFile; fileRef = 0E1AB8AE1FAC1BA5002520F9 /* ARSDK3_iOS_3_13_0 */; };
+		0E1AB8B41FAC1EEC002520F9 /* DeviceListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8B31FAC1EEC002520F9 /* DeviceListViewController.swift */; };
+		0E1AB8B61FAC2C54002520F9 /* MiniDroneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8B51FAC2C54002520F9 /* MiniDroneViewController.swift */; };
+		0E1AB8BC1FAC344E002520F9 /* DroneDiscoverer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8BA1FAC344E002520F9 /* DroneDiscoverer.m */; };
+		0E1AB8C01FAC34CD002520F9 /* H264VideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8BF1FAC34CD002520F9 /* H264VideoView.m */; };
+		0E1AB8C31FAC34DB002520F9 /* MiniDrone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8C21FAC34DB002520F9 /* MiniDrone.m */; };
+		0E1AB8C61FAC35EA002520F9 /* SDCardModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8C41FAC35EA002520F9 /* SDCardModule.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0E1AB8991FAC1B5B002520F9 /* SwiftParrotMinidrone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftParrotMinidrone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E1AB89C1FAC1B5B002520F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0E1AB89E1FAC1B5B002520F9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0E1AB8A11FAC1B5B002520F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0E1AB8A31FAC1B5B002520F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E1AB8A61FAC1B5B002520F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0E1AB8A81FAC1B5B002520F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0E1AB8AE1FAC1BA5002520F9 /* ARSDK3_iOS_3_13_0 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ARSDK3_iOS_3_13_0; sourceTree = "<group>"; };
+		0E1AB8B31FAC1EEC002520F9 /* DeviceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListViewController.swift; sourceTree = "<group>"; };
+		0E1AB8B51FAC2C54002520F9 /* MiniDroneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniDroneViewController.swift; sourceTree = "<group>"; };
+		0E1AB8B91FAC344D002520F9 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		0E1AB8BA1FAC344E002520F9 /* DroneDiscoverer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DroneDiscoverer.m; sourceTree = "<group>"; };
+		0E1AB8BB1FAC344E002520F9 /* DroneDiscoverer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DroneDiscoverer.h; sourceTree = "<group>"; };
+		0E1AB8BE1FAC34CC002520F9 /* H264VideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = H264VideoView.h; sourceTree = "<group>"; };
+		0E1AB8BF1FAC34CD002520F9 /* H264VideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = H264VideoView.m; sourceTree = "<group>"; };
+		0E1AB8C11FAC34DB002520F9 /* MiniDrone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniDrone.h; sourceTree = "<group>"; };
+		0E1AB8C21FAC34DB002520F9 /* MiniDrone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiniDrone.m; sourceTree = "<group>"; };
+		0E1AB8C41FAC35EA002520F9 /* SDCardModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCardModule.m; sourceTree = "<group>"; };
+		0E1AB8C51FAC35EA002520F9 /* SDCardModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCardModule.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +55,7 @@
 		0E1AB8901FAC1B5B002520F9 = {
 			isa = PBXGroup;
 			children = (
+				0E1AB8AE1FAC1BA5002520F9 /* ARSDK3_iOS_3_13_0 */,
 				0E1AB89B1FAC1B5B002520F9 /* SwiftParrotMinidrone */,
 				0E1AB89A1FAC1B5B002520F9 /* Products */,
 			);
@@ -54,14 +72,56 @@
 		0E1AB89B1FAC1B5B002520F9 /* SwiftParrotMinidrone */ = {
 			isa = PBXGroup;
 			children = (
+				0E1AB8BD1FAC34A9002520F9 /* Views */,
+				0E1AB8B71FAC33F4002520F9 /* Discovery */,
+				0E1AB8B81FAC3409002520F9 /* Drones */,
+				0E1AB8B01FAC1E87002520F9 /* ViewControllers */,
 				0E1AB89C1FAC1B5B002520F9 /* AppDelegate.swift */,
-				0E1AB89E1FAC1B5B002520F9 /* ViewController.swift */,
 				0E1AB8A01FAC1B5B002520F9 /* Main.storyboard */,
 				0E1AB8A31FAC1B5B002520F9 /* Assets.xcassets */,
 				0E1AB8A51FAC1B5B002520F9 /* LaunchScreen.storyboard */,
 				0E1AB8A81FAC1B5B002520F9 /* Info.plist */,
+				0E1AB8B91FAC344D002520F9 /* Bridging-Header.h */,
 			);
 			path = SwiftParrotMinidrone;
+			sourceTree = "<group>";
+		};
+		0E1AB8B01FAC1E87002520F9 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0E1AB8B31FAC1EEC002520F9 /* DeviceListViewController.swift */,
+				0E1AB8B51FAC2C54002520F9 /* MiniDroneViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		0E1AB8B71FAC33F4002520F9 /* Discovery */ = {
+			isa = PBXGroup;
+			children = (
+				0E1AB8BB1FAC344E002520F9 /* DroneDiscoverer.h */,
+				0E1AB8BA1FAC344E002520F9 /* DroneDiscoverer.m */,
+			);
+			path = Discovery;
+			sourceTree = "<group>";
+		};
+		0E1AB8B81FAC3409002520F9 /* Drones */ = {
+			isa = PBXGroup;
+			children = (
+				0E1AB8C11FAC34DB002520F9 /* MiniDrone.h */,
+				0E1AB8C21FAC34DB002520F9 /* MiniDrone.m */,
+				0E1AB8C51FAC35EA002520F9 /* SDCardModule.h */,
+				0E1AB8C41FAC35EA002520F9 /* SDCardModule.m */,
+			);
+			path = Drones;
+			sourceTree = "<group>";
+		};
+		0E1AB8BD1FAC34A9002520F9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0E1AB8BE1FAC34CC002520F9 /* H264VideoView.h */,
+				0E1AB8BF1FAC34CD002520F9 /* H264VideoView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +156,7 @@
 				TargetAttributes = {
 					0E1AB8981FAC1B5B002520F9 = {
 						CreatedOnToolsVersion = 9.1;
+						LastSwiftMigration = 0910;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -126,6 +187,7 @@
 				0E1AB8A71FAC1B5B002520F9 /* LaunchScreen.storyboard in Resources */,
 				0E1AB8A41FAC1B5B002520F9 /* Assets.xcassets in Resources */,
 				0E1AB8A21FAC1B5B002520F9 /* Main.storyboard in Resources */,
+				0E1AB8AF1FAC1BA5002520F9 /* ARSDK3_iOS_3_13_0 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,8 +198,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E1AB89F1FAC1B5B002520F9 /* ViewController.swift in Sources */,
+				0E1AB8B61FAC2C54002520F9 /* MiniDroneViewController.swift in Sources */,
+				0E1AB8C31FAC34DB002520F9 /* MiniDrone.m in Sources */,
+				0E1AB8C01FAC34CD002520F9 /* H264VideoView.m in Sources */,
 				0E1AB89D1FAC1B5B002520F9 /* AppDelegate.swift in Sources */,
+				0E1AB8C61FAC35EA002520F9 /* SDCardModule.m in Sources */,
+				0E1AB8BC1FAC344E002520F9 /* DroneDiscoverer.m in Sources */,
+				0E1AB8B41FAC1EEC002520F9 /* DeviceListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,12 +341,47 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3VP94SWXU7;
+				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = "ARSDK3_iOS_3_13_0/arsdk-ios/staging/usr/include";
+				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = "ARSDK3_iOS_3_13_0/arsdk-ios_sim/staging/usr/include";
 				INFOPLIST_FILE = SwiftParrotMinidrone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "ARSDK3_iOS_3_13_0/arsdk-ios/staging/usr/lib";
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "ARSDK3_iOS_3_13_0/arsdk-ios_sim/staging/usr/lib";
+				OTHER_LDFLAGS = (
+					"-larcommands",
+					"-larcontroller",
+					"-lardiscoverywithouteacc",
+					"-larnetwork",
+					"-larnetworkal",
+					"-larsal",
+					"-larstream",
+					"-larstream2",
+					"-larmavlink",
+					"-ljson",
+					"-larmedia",
+					"-larutils",
+					"-lcurl",
+					"-lardatatransfer",
+					"-lcrypto",
+					"-lz",
+					"-lssl",
+					"-lpomp",
+					"-lmux",
+					"-lulog",
+					"-lsdp",
+					"-lrtsp",
+					"-lfutils",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = asia.groovelab.SwiftParrotMinidrone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftParrotMinidrone/Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -289,12 +391,46 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3VP94SWXU7;
+				"HEADER_SEARCH_PATHS[sdk=iphoneos*]" = "ARSDK3_iOS_3_13_0/arsdk-ios/staging/usr/include";
+				"HEADER_SEARCH_PATHS[sdk=iphonesimulator*]" = "ARSDK3_iOS_3_13_0/arsdk-ios_sim/staging/usr/include";
 				INFOPLIST_FILE = SwiftParrotMinidrone/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"LIBRARY_SEARCH_PATHS[sdk=iphoneos*]" = "ARSDK3_iOS_3_13_0/arsdk-ios/staging/usr/lib";
+				"LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]" = "ARSDK3_iOS_3_13_0/arsdk-ios_sim/staging/usr/lib";
+				OTHER_LDFLAGS = (
+					"-larcommands",
+					"-larcontroller",
+					"-lardiscoverywithouteacc",
+					"-larnetwork",
+					"-larnetworkal",
+					"-larsal",
+					"-larstream",
+					"-larstream2",
+					"-larmavlink",
+					"-ljson",
+					"-larmedia",
+					"-larutils",
+					"-lcurl",
+					"-lardatatransfer",
+					"-lcrypto",
+					"-lz",
+					"-lssl",
+					"-lpomp",
+					"-lmux",
+					"-lulog",
+					"-lsdp",
+					"-lrtsp",
+					"-lfutils",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = asia.groovelab.SwiftParrotMinidrone;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftParrotMinidrone/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
