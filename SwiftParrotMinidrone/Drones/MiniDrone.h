@@ -93,10 +93,10 @@
 - (void)takeOff;
 - (void)land;
 - (void)takePicture;
-- (void)setPitch:(uint8_t)pitch;
-- (void)setRoll:(uint8_t)roll;
-- (void)setYaw:(uint8_t)yaw;
-- (void)setGaz:(uint8_t)gaz;
+- (void)setPitch:(int8_t)pitch;
+- (void)setRoll:(int8_t)roll;
+- (void)setYaw:(int8_t)yaw;
+- (void)setGaz:(int8_t)gaz;
 - (void)setFlag:(uint8_t)flag;
 - (void)downloadMedias;
 - (void)cancelDownloadMedias;

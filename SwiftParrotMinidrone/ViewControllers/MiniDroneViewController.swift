@@ -135,7 +135,7 @@ class MiniDroneViewController: UIViewController {
     }
     
     @IBAction func gazDownTouchDown(_ sender: UIButton) {
-        miniDrone?.setGaz(UInt8(-50))
+        miniDrone?.setGaz(-50)
     }
 
     @IBAction func gazUpTouchUp(_ sender: UIButton) {
@@ -147,7 +147,7 @@ class MiniDroneViewController: UIViewController {
     }
 
     @IBAction func yawLeftTouchDown(_ sender: UIButton) {
-        miniDrone?.setYaw(UInt8(-50))
+        miniDrone?.setYaw(-50)
     }
     
     @IBAction func yawRightTouchDown(_ sender: UIButton) {
@@ -164,7 +164,7 @@ class MiniDroneViewController: UIViewController {
     
     @IBAction func rollLeftTouchDown(_ sender: UIButton) {
         miniDrone?.setFlag(1)
-        miniDrone?.setRoll(UInt8(-50))
+        miniDrone?.setRoll(-50)
     }
 
     @IBAction func rollRightTouchDown(_ sender: UIButton) {
@@ -184,12 +184,12 @@ class MiniDroneViewController: UIViewController {
 
     @IBAction func pitchForwardTouchDown(_ sender: UIButton) {
         miniDrone?.setFlag(1)
-        miniDrone?.setRoll(50)
+        miniDrone?.setPitch(50)
     }
 
     @IBAction func pitchBackTouchDown(_ sender: UIButton) {
         miniDrone?.setFlag(1)
-        miniDrone?.setRoll(UInt8(-50))
+        miniDrone?.setPitch(-50)
     }
 
     @IBAction func pitchForwardTouchUp(_ sender: UIButton) {

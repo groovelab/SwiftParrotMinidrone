@@ -175,25 +175,25 @@
     }
 }
 
-- (void)setPitch:(uint8_t)pitch {
+- (void)setPitch:(int8_t)pitch {
     if (_deviceController && (_connectionState == ARCONTROLLER_DEVICE_STATE_RUNNING)) {
         _deviceController->miniDrone->setPilotingPCMDPitch(_deviceController->miniDrone, pitch);
     }
 }
 
-- (void)setRoll:(uint8_t)roll {
+- (void)setRoll:(int8_t)roll {
     if (_deviceController && (_connectionState == ARCONTROLLER_DEVICE_STATE_RUNNING)) {
         _deviceController->miniDrone->setPilotingPCMDRoll(_deviceController->miniDrone, roll);
     }
 }
 
-- (void)setYaw:(uint8_t)yaw {
+- (void)setYaw:(int8_t)yaw {
     if (_deviceController && (_connectionState == ARCONTROLLER_DEVICE_STATE_RUNNING)) {
         _deviceController->miniDrone->setPilotingPCMDYaw(_deviceController->miniDrone, yaw);
     }
 }
 
-- (void)setGaz:(uint8_t)gaz {
+- (void)setGaz:(int8_t)gaz {
     if (_deviceController && (_connectionState == ARCONTROLLER_DEVICE_STATE_RUNNING)) {
         _deviceController->miniDrone->setPilotingPCMDGaz(_deviceController->miniDrone, gaz);
     }
