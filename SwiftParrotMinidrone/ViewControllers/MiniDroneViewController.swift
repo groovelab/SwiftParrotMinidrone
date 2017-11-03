@@ -31,18 +31,20 @@ class MiniDroneViewController: UIViewController {
         miniDrone = MiniDrone(service: service)
         miniDrone?.delegate = self
         miniDrone?.connect()
-        
-        connectionAlertController = UIAlertController(title: service?.name ?? "", message: "Connecting ...", preferredStyle: .alert)
-        connectionAlertController?.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-            self.connectionAlertController?.dismiss(animated: true, completion: nil)
-        }))
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if miniDrone?.connectionState() != ARCONTROLLER_DEVICE_STATE_RUNNING, let connectionAlertController = connectionAlertController {
-            present(connectionAlertController, animated: true, completion: nil)
+        if miniDrone?.connectionState() != ARCONTROLLER_DEVICE_STATE_RUNNING {
+            connectionAlertController = UIAlertController(title: service?.name ?? "", message: "Connecting ...", preferredStyle: .alert)
+            if let alertController = connectionAlertController {
+                alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { _ in
+                    alertController.dismiss(animated: true, completion: nil)
+                    self.navigationController?.popViewController(animated: true)
+                }))
+                present(alertController, animated: true, completion: nil)
+            }
         }
     }
     
@@ -212,7 +214,13 @@ extension MiniDroneViewController: MiniDroneDelegate {
             stateSem.signal()
             
             // Go back
-            navigationController?.popViewController(animated: true)
+            if let alertController = connectionAlertController {
+                alertController.dismiss(animated: true, completion: {
+                    self.navigationController?.popViewController(animated: true)
+                })
+            } else {
+                navigationController?.popViewController(animated: true)
+            }
         default:
             break
         }
