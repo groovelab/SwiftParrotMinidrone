@@ -5,7 +5,6 @@
 #import <libARDiscovery/ARDISCOVERY_BonjourDiscovery.h>
 #import <libARDiscovery/ARDISCOVERY_Device.h>
 
-#import "DroneDiscoverer.h"
 #import "MiniDrone.h"
 #import "SDCardModule.h"
 #import "H264VideoView.h"

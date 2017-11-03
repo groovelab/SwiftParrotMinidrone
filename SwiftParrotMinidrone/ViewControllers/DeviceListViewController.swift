@@ -14,7 +14,7 @@ class DeviceListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     let droneDiscoverer = DroneDiscoverer()
-    var dataSource: [ARService] = []
+    var dataSource: [Any] = []
     var selectedService: ARService?
     
     override func viewDidLoad() {
@@ -68,13 +68,11 @@ class DeviceListViewController: UIViewController {
                                                   object: nil)
     }
     
-    @objc
-    func enterForeground(notification: NSNotification) {
+    @objc func enterForeground(notification: NSNotification) {
         droneDiscoverer.startDiscovering()
     }
 
-    @objc
-    func enteredBackground(notification: NSNotification) {
+    @objc func enteredBackground(notification: NSNotification) {
         droneDiscoverer.stopDiscovering()
     }
 }
@@ -85,29 +83,34 @@ extension DeviceListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let service: ARService = dataSource[indexPath.row]
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
 
-        let networkType: String!
-        switch service.network_type {
-        case ARDISCOVERY_NETWORK_TYPE_NET:
-            networkType = "IP (e.g. wifi)"
-        case ARDISCOVERY_NETWORK_TYPE_BLE:
-            networkType = "BLE"
-        case ARDISCOVERY_NETWORK_TYPE_USBMUX:
-            networkType = "libmux over USB"
-        default:
-            networkType = "Unknown"
+        if let arService = dataSource[indexPath.row] as? ARService {
+            let networkType: String!
+            switch arService.network_type {
+            case ARDISCOVERY_NETWORK_TYPE_NET:
+                networkType = "IP (e.g. wifi)"
+            case ARDISCOVERY_NETWORK_TYPE_BLE:
+                networkType = "BLE"
+            case ARDISCOVERY_NETWORK_TYPE_USBMUX:
+                networkType = "libmux over USB"
+            default:
+                networkType = "Unknown"
+            }
+            
+            cell.textLabel?.text = String(format: "%@ on %@ network", arService.name, networkType)
         }
 
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
-        cell.textLabel?.text = String(format: "%@ on %@ network", service.name, networkType)
         return cell
     }
 }
 
 extension DeviceListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let arService = dataSource[indexPath.row]
+        guard let arService = dataSource[indexPath.row] as? ARService else {
+            return
+        }
+
         switch arService.product {
         case ARDISCOVERY_PRODUCT_MINIDRONE,
              ARDISCOVERY_PRODUCT_MINIDRONE_EVO_BRICK,
@@ -124,13 +127,7 @@ extension DeviceListViewController: UITableViewDelegate {
 
 extension DeviceListViewController: DroneDiscovererDelegate {
     func droneDiscoverer(_ droneDiscoverer: DroneDiscoverer!, didUpdateDronesList dronesList: [Any]!) {
-        dataSource.removeAll()
-        for item in dronesList {
-            if let arService = item as? ARService {
-                dataSource.append(arService)
-            }
-        }
-
+        dataSource = dronesList
         tableView.reloadData()
     }
 }
