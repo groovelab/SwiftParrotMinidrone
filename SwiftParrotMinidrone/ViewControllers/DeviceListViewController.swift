@@ -9,13 +9,13 @@
 import UIKit
 
 class DeviceListViewController: UIViewController {
-    let MINIDRONE_SEGUE = "miniDroneSegue"
+    private let MINIDRONE_SEGUE = "miniDroneSegue"
     
     @IBOutlet weak var tableView: UITableView!
 
-    let droneDiscoverer = DroneDiscoverer()
-    var dataSource: [Any] = []
-    var selectedService: ARService?
+    private let droneDiscoverer = DroneDiscoverer()
+    private var dataSource: [Any] = []
+    private var selectedService: ARService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +48,7 @@ class DeviceListViewController: UIViewController {
         }
     }
     
-    func registerNotifications() {
+    private func registerNotifications() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.enteredBackground),
                                                name: .UIApplicationDidEnterBackground,
@@ -59,7 +59,7 @@ class DeviceListViewController: UIViewController {
                                                object: nil)
     }
     
-    func unregisterNotifications() {
+    private func unregisterNotifications() {
         NotificationCenter.default.removeObserver(self,
                                                   name: .UIApplicationDidEnterBackground,
                                                   object: nil)
@@ -68,11 +68,11 @@ class DeviceListViewController: UIViewController {
                                                   object: nil)
     }
     
-    @objc func enterForeground(notification: NSNotification) {
+    @objc private func enterForeground(notification: Notification?) {
         droneDiscoverer.startDiscovering()
     }
 
-    @objc func enteredBackground(notification: NSNotification) {
+    @objc private func enteredBackground(notification: Notification?) {
         droneDiscoverer.stopDiscovering()
     }
 }

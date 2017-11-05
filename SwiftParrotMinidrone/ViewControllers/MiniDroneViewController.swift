@@ -9,18 +9,19 @@
 import UIKit
 
 class MiniDroneViewController: UIViewController {
+    private let stateSem: DispatchSemaphore = DispatchSemaphore(value: 0)
 
-    let stateSem: DispatchSemaphore = DispatchSemaphore(value: 0)
+    private var connectionAlertController: UIAlertController?
+    private var downloadAlertController: UIAlertController?
+    private var downloadProgressView: UIProgressView?
+    private var miniDrone: MiniDrone?
+    private var nbMaxDownload = 0
+    private var currentDownloadIndex = 0 // from 1 to nbMaxDownload
 
-    var connectionAlertController: UIAlertController?
-    var downloadAlertController: UIAlertController?
-    var downloadProgressView: UIProgressView?
-    var miniDrone: MiniDrone?
     var service: ARService?
-    var nbMaxDownload = 0
-    var currentDownloadIndex = 0 // from 1 to nbMaxDownload
 
     @IBOutlet weak var videoView: H264VideoView!
+//    @IBOutlet weak var videoView: H264VideoView2!
     @IBOutlet weak var batteryLabel: UILabel!
     @IBOutlet weak var takeOffLandBt: UIButton!
     @IBOutlet weak var downloadMediasBt: UIButton!
