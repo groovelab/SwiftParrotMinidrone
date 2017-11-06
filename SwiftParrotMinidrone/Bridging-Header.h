@@ -8,3 +8,4 @@
 
 #import "MiniDrone.h"
 #import "SDCardModule.h"
+#import "H264VideoView.h"

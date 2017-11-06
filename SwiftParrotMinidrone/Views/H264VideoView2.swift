@@ -1,5 +1,5 @@
 //
-//  H264VideoView.swift
+//  H264VideoView2.swift
 //  SwiftParrotMinidrone
 //
 //  Created by Groovelab on 2017/11/04.
@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 
-class H264VideoView: UIView {
+class H264VideoView2: UIView {
     private var videoLayer: AVSampleBufferDisplayLayer?
     private var formatDesc: CMVideoFormatDescription?
     private var spsSize = 0
@@ -116,7 +116,7 @@ class H264VideoView: UIView {
                     success = false
                 }
             }
-            
+
             if success,
                 let blockBuffer = blockBuffer {
                 let sampleSizes: [Int] = [CMBlockBufferGetDataLength(blockBuffer)]
@@ -128,7 +128,7 @@ class H264VideoView: UIView {
                     print("Error creating the sample buffer = %@", error.description)
                 }
             }
-            
+
             if success,
                 let sampleBuffer = sampleBuffer,
                 let attachments = CMSampleBufferGetSampleAttachmentsArray(sampleBuffer, true) {
@@ -142,7 +142,7 @@ class H264VideoView: UIView {
                 let videoLayer = videoLayer, videoLayer.status != .failed && videoLayer.isReadyForMoreMediaData {
                 DispatchQueue.main.async {
                     if self.canDisplayVideo, let sampleBuffer = sampleBuffer {
-                        videoLayer.enqueue(sampleBuffer)
+                        self.videoLayer!.enqueue(sampleBuffer)
                     }
                 }
             }

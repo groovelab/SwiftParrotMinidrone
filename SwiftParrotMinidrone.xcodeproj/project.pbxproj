@@ -17,7 +17,8 @@
 		0E1AB8C31FAC34DB002520F9 /* MiniDrone.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8C21FAC34DB002520F9 /* MiniDrone.m */; };
 		0E1AB8C61FAC35EA002520F9 /* SDCardModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8C41FAC35EA002520F9 /* SDCardModule.m */; };
 		0E1AB8C81FACA890002520F9 /* DroneDiscoverer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8C71FACA890002520F9 /* DroneDiscoverer.swift */; };
-		0E1AB8CA1FADB154002520F9 /* H264VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8C91FADB154002520F9 /* H264VideoView.swift */; };
+		0E1AB8CA1FADB154002520F9 /* H264VideoView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8C91FADB154002520F9 /* H264VideoView2.swift */; };
+		0E1AB8CB1FAF827F002520F9 /* H264VideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8BF1FAC34CD002520F9 /* H264VideoView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,14 +32,14 @@
 		0E1AB8B31FAC1EEC002520F9 /* DeviceListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListViewController.swift; sourceTree = "<group>"; };
 		0E1AB8B51FAC2C54002520F9 /* MiniDroneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniDroneViewController.swift; sourceTree = "<group>"; };
 		0E1AB8B91FAC344D002520F9 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		0E1AB8BE1FAC34CC002520F9 /* H264VideoView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = H264VideoView2.h; sourceTree = "<group>"; };
-		0E1AB8BF1FAC34CD002520F9 /* H264VideoView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = H264VideoView2.m; sourceTree = "<group>"; };
+		0E1AB8BE1FAC34CC002520F9 /* H264VideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = H264VideoView.h; sourceTree = "<group>"; };
+		0E1AB8BF1FAC34CD002520F9 /* H264VideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = H264VideoView.m; sourceTree = "<group>"; };
 		0E1AB8C11FAC34DB002520F9 /* MiniDrone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniDrone.h; sourceTree = "<group>"; };
 		0E1AB8C21FAC34DB002520F9 /* MiniDrone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiniDrone.m; sourceTree = "<group>"; };
 		0E1AB8C41FAC35EA002520F9 /* SDCardModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCardModule.m; sourceTree = "<group>"; };
 		0E1AB8C51FAC35EA002520F9 /* SDCardModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCardModule.h; sourceTree = "<group>"; };
 		0E1AB8C71FACA890002520F9 /* DroneDiscoverer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneDiscoverer.swift; sourceTree = "<group>"; };
-		0E1AB8C91FADB154002520F9 /* H264VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H264VideoView.swift; sourceTree = "<group>"; };
+		0E1AB8C91FADB154002520F9 /* H264VideoView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H264VideoView2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,9 +118,9 @@
 		0E1AB8BD1FAC34A9002520F9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0E1AB8BE1FAC34CC002520F9 /* H264VideoView2.h */,
-				0E1AB8BF1FAC34CD002520F9 /* H264VideoView2.m */,
-				0E1AB8C91FADB154002520F9 /* H264VideoView.swift */,
+				0E1AB8BE1FAC34CC002520F9 /* H264VideoView.h */,
+				0E1AB8BF1FAC34CD002520F9 /* H264VideoView.m */,
+				0E1AB8C91FADB154002520F9 /* H264VideoView2.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -201,10 +202,11 @@
 				0E1AB8B61FAC2C54002520F9 /* MiniDroneViewController.swift in Sources */,
 				0E1AB8C31FAC34DB002520F9 /* MiniDrone.m in Sources */,
 				0E1AB89D1FAC1B5B002520F9 /* AppDelegate.swift in Sources */,
+				0E1AB8CB1FAF827F002520F9 /* H264VideoView.m in Sources */,
 				0E1AB8C61FAC35EA002520F9 /* SDCardModule.m in Sources */,
 				0E1AB8C81FACA890002520F9 /* DroneDiscoverer.swift in Sources */,
 				0E1AB8B41FAC1EEC002520F9 /* DeviceListViewController.swift in Sources */,
-				0E1AB8CA1FADB154002520F9 /* H264VideoView.swift in Sources */,
+				0E1AB8CA1FADB154002520F9 /* H264VideoView2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,11 +3,11 @@
 //  SDKSample
 //
 
-#import "H264VideoView2.h"
+#import "H264VideoView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <VideoToolbox/VideoToolbox.h>
 
-@interface H264VideoView2 ()
+@interface H264VideoView ()
 
 @property (nonatomic, retain) AVSampleBufferDisplayLayer *videoLayer;
 @property (nonatomic, assign) CMVideoFormatDescriptionRef formatDesc;
@@ -17,7 +17,7 @@
 @property (nonatomic, assign) BOOL lastDecodeHasFailed;
 
 @end
-@implementation H264VideoView2
+@implementation H264VideoView
 
 - (id)init {
     self = [super init];
