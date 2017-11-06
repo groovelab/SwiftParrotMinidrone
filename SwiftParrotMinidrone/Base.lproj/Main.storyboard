@@ -102,8 +102,8 @@
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="eRp-xd-aV2"/>
                                         <exclude reference="BeK-IJ-gq2"/>
+                                        <exclude reference="eRp-xd-aV2"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -210,8 +210,8 @@
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="hIe-ez-h5C"/>
                                         <exclude reference="PN6-3c-6Ul"/>
+                                        <exclude reference="hIe-ez-h5C"/>
                                     </mask>
                                 </variation>
                             </label>
@@ -227,8 +227,8 @@
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="bt0-ts-PsB"/>
                                         <exclude reference="CPn-p8-4td"/>
+                                        <exclude reference="bt0-ts-PsB"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -279,8 +279,8 @@
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="fkF-Cf-CkE"/>
                                         <exclude reference="KlV-j2-lGL"/>
+                                        <exclude reference="fkF-Cf-CkE"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -301,8 +301,8 @@
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="mYu-bU-Go3"/>
                                         <exclude reference="jZF-u4-OL6"/>
+                                        <exclude reference="mYu-bU-Go3"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -376,6 +376,18 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKA-xh-9g6">
+                                <rect key="frame" x="5" y="622" width="40" height="40"/>
+                                <color key="backgroundColor" red="0.66671651601791382" green="0.66670370101928711" blue="0.66671234369277954" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="WlX-q0-fsG"/>
+                                    <constraint firstAttribute="height" constant="40" id="YH7-V0-kqR"/>
+                                </constraints>
+                                <state key="normal" image="icon_config"/>
+                                <connections>
+                                    <action selector="configureClicked:" destination="zp9-oq-xvh" eventType="touchUpInside" id="OMy-eD-LZl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -394,6 +406,7 @@
                             <constraint firstItem="5Yb-XS-LYO" firstAttribute="height" secondItem="EES-xU-4O2" secondAttribute="height" id="EeO-L3-rDS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="E2N-V4-hye" secondAttribute="trailing" constant="55" id="Fb1-1A-4VT"/>
                             <constraint firstAttribute="trailing" secondItem="t2c-JB-yqi" secondAttribute="trailing" constant="10" id="G9v-94-7jh"/>
+                            <constraint firstItem="3zL-0u-9Je" firstAttribute="top" secondItem="fKA-xh-9g6" secondAttribute="bottom" constant="5" id="GAv-1A-rSd"/>
                             <constraint firstItem="shf-1N-Vbx" firstAttribute="top" secondItem="CdE-5V-Bbx" secondAttribute="bottom" id="GIt-uv-zCv"/>
                             <constraint firstItem="EES-xU-4O2" firstAttribute="leading" secondItem="pjA-b4-3ev" secondAttribute="trailing" constant="10" id="GM0-BT-5oQ"/>
                             <constraint firstItem="yGn-He-Mxb" firstAttribute="leading" secondItem="FjT-JF-oPw" secondAttribute="trailing" constant="10" id="H2K-bP-8oP"/>
@@ -425,6 +438,7 @@
                             <constraint firstItem="TSj-Ke-KBd" firstAttribute="top" secondItem="JEf-w6-Bge" secondAttribute="top" id="krt-0C-RI2"/>
                             <constraint firstItem="E2N-V4-hye" firstAttribute="leading" secondItem="pV3-4w-PVc" secondAttribute="trailing" constant="10" id="kwV-9o-iTg"/>
                             <constraint firstItem="CdE-5V-Bbx" firstAttribute="width" secondItem="EES-xU-4O2" secondAttribute="width" id="l0K-xE-oqu"/>
+                            <constraint firstItem="fKA-xh-9g6" firstAttribute="leading" secondItem="cfp-p4-Wdp" secondAttribute="leading" constant="5" id="nPu-BK-EfR"/>
                             <constraint firstItem="yGn-He-Mxb" firstAttribute="height" secondItem="EES-xU-4O2" secondAttribute="height" id="ndG-Z3-EF1"/>
                             <constraint firstItem="pjA-b4-3ev" firstAttribute="leading" secondItem="CVX-cc-Njg" secondAttribute="leadingMargin" constant="5" id="oCg-fk-56x"/>
                             <constraint firstItem="3zL-0u-9Je" firstAttribute="top" secondItem="qFN-Sg-YcB" secondAttribute="bottom" id="oK1-Ge-4bV"/>
@@ -450,30 +464,74 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="5Ka-EO-QnQ"/>
+                                <exclude reference="Fb1-1A-4VT"/>
+                                <exclude reference="fAo-22-bSi"/>
                                 <exclude reference="1NN-Bt-BfB"/>
                                 <exclude reference="XTg-RO-3DR"/>
-                                <exclude reference="YmI-Ya-k4w"/>
-                                <exclude reference="GIt-uv-zCv"/>
-                                <exclude reference="fAo-22-bSi"/>
-                                <exclude reference="Fb1-1A-4VT"/>
+                                <exclude reference="EPw-w4-h4O"/>
                                 <exclude reference="pYf-75-kQa"/>
                                 <exclude reference="wo7-hQ-cSn"/>
-                                <exclude reference="EPw-w4-h4O"/>
+                                <exclude reference="YmI-Ya-k4w"/>
+                                <exclude reference="GIt-uv-zCv"/>
                                 <exclude reference="P5b-Et-YKh"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="nbN-4e-cbc"/>
                     <connections>
+                        <outlet property="backButton" destination="shf-1N-Vbx" id="wVh-ra-Ooe"/>
                         <outlet property="batteryLabel" destination="wJK-Cc-RXz" id="fUZ-c8-KqD"/>
+                        <outlet property="downButton" destination="FjT-JF-oPw" id="xeV-3o-7m5"/>
                         <outlet property="downloadMediasBt" destination="TSj-Ke-KBd" id="O8u-lI-0bD"/>
+                        <outlet property="forwardButton" destination="EES-xU-4O2" id="Qed-99-Loo"/>
+                        <outlet property="rollLabel" destination="CdE-5V-Bbx" id="NpH-LJ-xpt"/>
                         <outlet property="takeOffLandBt" destination="JEf-w6-Bge" id="oFk-bG-6n5"/>
+                        <outlet property="upButton" destination="E2N-V4-hye" id="WGa-oy-YyX"/>
                         <outlet property="videoView" destination="qFN-Sg-YcB" id="uBS-7v-Q5u"/>
+                        <outlet property="yawLabel" destination="6jZ-tv-MN6" id="9xt-Nd-Crj"/>
+                        <segue destination="Jrw-uG-4xq" kind="show" identifier="configureSegue" id="cdn-l9-dwl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="je2-h5-V0e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="225" y="-30"/>
+            <point key="canvasLocation" x="224.80000000000001" y="-30.134932533733135"/>
+        </scene>
+        <!--Configure View Controller-->
+        <scene sceneID="NcC-mM-iqw">
+            <objects>
+                <viewController id="Jrw-uG-4xq" customClass="ConfigureViewController" customModule="SwiftParrotMinidrone" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xiS-7R-WIU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gH3-RQ-tcD">
+                                <rect key="frame" x="131" y="84" width="113" height="29"/>
+                                <segments>
+                                    <segment title="mode1"/>
+                                    <segment title="mode2"/>
+                                </segments>
+                                <connections>
+                                    <action selector="modeValueChanged:" destination="Jrw-uG-4xq" eventType="valueChanged" id="qyU-qE-1hb"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gH3-RQ-tcD" firstAttribute="centerX" secondItem="xiS-7R-WIU" secondAttribute="centerX" id="3SF-Kr-wGb"/>
+                            <constraint firstItem="gH3-RQ-tcD" firstAttribute="top" secondItem="VMq-iS-ARY" secondAttribute="top" constant="20" id="Q5x-Qc-fZ4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="VMq-iS-ARY"/>
+                    </view>
+                    <connections>
+                        <outlet property="modeSegmentedControl" destination="gH3-RQ-tcD" id="Ng2-Ae-jAV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Ox-Fh-qy7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="996" y="-30"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon_config" width="30" height="30"/>
+    </resources>
 </document>

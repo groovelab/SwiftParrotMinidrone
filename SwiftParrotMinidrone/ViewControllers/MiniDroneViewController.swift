@@ -9,6 +9,7 @@
 import UIKit
 
 class MiniDroneViewController: UIViewController {
+    private let CONFIGURE_SEGUE = "configureSegue"
     private let stateSem: DispatchSemaphore = DispatchSemaphore(value: 0)
 
     private var connectionAlertController: UIAlertController?
@@ -17,6 +18,8 @@ class MiniDroneViewController: UIViewController {
     private var miniDrone: MiniDrone?
     private var nbMaxDownload = 0
     private var currentDownloadIndex = 0 // from 1 to nbMaxDownload
+    private var isConfiguretion = false
+    private var mode = Configure.Mode.mode1
 
     var service: ARService?
 
@@ -25,13 +28,43 @@ class MiniDroneViewController: UIViewController {
     @IBOutlet weak var batteryLabel: UILabel!
     @IBOutlet weak var takeOffLandBt: UIButton!
     @IBOutlet weak var downloadMediasBt: UIButton!
-    
+
+    @IBOutlet weak var yawLabel: UILabel!
+    @IBOutlet weak var upButton: UIButton!
+    @IBOutlet weak var downButton: UIButton!
+
+    @IBOutlet weak var rollLabel: UILabel!
+    @IBOutlet weak var forwardButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         miniDrone = MiniDrone(service: service)
         miniDrone?.delegate = self
         miniDrone?.connect()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        mode = Configure.mode
+        switch mode {
+        case .mode1:
+            yawLabel.text = "yaw"
+            upButton.setTitle("up", for: .normal)
+            downButton.setTitle("down", for: .normal)
+            rollLabel.text = "roll"
+            forwardButton.setTitle("forward", for: .normal)
+            backButton.setTitle("back", for: .normal)
+        case .mode2:
+            yawLabel.text = "roll"
+            upButton.setTitle("forward", for: .normal)
+            downButton.setTitle("back", for: .normal)
+            rollLabel.text = "yaw"
+            forwardButton.setTitle("up", for: .normal)
+            backButton.setTitle("down", for: .normal)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -52,6 +85,11 @@ class MiniDroneViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
+        if isConfiguretion {
+            isConfiguretion = false
+            return
+        }
+
         connectionAlertController?.dismiss(animated: true, completion: nil)
         connectionAlertController = UIAlertController(title: service?.name ?? "", message: "Disconnecting ...", preferredStyle: .alert)
         if let connectionAlertController = connectionAlertController {
@@ -70,6 +108,12 @@ class MiniDroneViewController: UIViewController {
             DispatchQueue.main.async {
                 self.connectionAlertController?.dismiss(animated: true, completion: nil)
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == CONFIGURE_SEGUE {
+            isConfiguretion = true
         }
     }
     
@@ -134,75 +178,168 @@ class MiniDroneViewController: UIViewController {
     }
     
     @IBAction func gazUpTouchDown(_ sender: UIButton) {
-        miniDrone?.setGaz(50)
+        switch mode {
+        case .mode1:
+            miniDrone?.setGaz(50)
+        case .mode2:
+            miniDrone?.setFlag(1)
+            miniDrone?.setPitch(50)
+        }
     }
     
     @IBAction func gazDownTouchDown(_ sender: UIButton) {
-        miniDrone?.setGaz(-50)
+        switch mode {
+        case .mode1:
+            miniDrone?.setGaz(-50)
+        case .mode2:
+            miniDrone?.setFlag(1)
+            miniDrone?.setPitch(-50)
+        }
+
     }
 
     @IBAction func gazUpTouchUp(_ sender: UIButton) {
-        miniDrone?.setGaz(0)
+        switch mode {
+        case .mode1:
+            miniDrone?.setGaz(0)
+        case .mode2:
+            miniDrone?.setFlag(0)
+            miniDrone?.setPitch(0)
+        }
     }
 
     @IBAction func gazDownTouchUp(_ sender: UIButton) {
-        miniDrone?.setGaz(0)
+        switch mode {
+        case .mode1:
+            miniDrone?.setGaz(0)
+        case .mode2:
+            miniDrone?.setFlag(0)
+            miniDrone?.setPitch(0)
+        }
     }
 
     @IBAction func yawLeftTouchDown(_ sender: UIButton) {
-        miniDrone?.setYaw(-50)
+        switch mode {
+        case .mode1:
+            miniDrone?.setYaw(-50)
+        case .mode2:
+            miniDrone?.setFlag(1)
+            miniDrone?.setRoll(-50)
+        }
     }
     
     @IBAction func yawRightTouchDown(_ sender: UIButton) {
-        miniDrone?.setYaw(50)
+        switch mode {
+        case .mode1:
+            miniDrone?.setYaw(50)
+        case .mode2:
+            miniDrone?.setFlag(1)
+            miniDrone?.setRoll(50)
+        }
     }
 
     @IBAction func yawLeftTouchUp(_ sender: UIButton) {
-        miniDrone?.setYaw(0)
+        switch mode {
+        case .mode1:
+            miniDrone?.setYaw(0)
+        case .mode2:
+            miniDrone?.setFlag(0)
+            miniDrone?.setRoll(0)
+        }
     }
 
     @IBAction func yawRightTouchUp(_ sender: UIButton) {
-        miniDrone?.setYaw(0)
+        switch mode {
+        case .mode1:
+            miniDrone?.setYaw(0)
+        case .mode2:
+            miniDrone?.setFlag(0)
+            miniDrone?.setRoll(0)
+        }
     }
     
     @IBAction func rollLeftTouchDown(_ sender: UIButton) {
-        miniDrone?.setFlag(1)
-        miniDrone?.setRoll(-50)
+        switch mode {
+        case .mode1:
+            miniDrone?.setFlag(1)
+            miniDrone?.setRoll(-50)
+        case .mode2:
+            miniDrone?.setYaw(-50)
+        }
     }
 
     @IBAction func rollRightTouchDown(_ sender: UIButton) {
-        miniDrone?.setFlag(1)
-        miniDrone?.setRoll(50)
+        switch mode {
+        case .mode1:
+            miniDrone?.setFlag(1)
+            miniDrone?.setRoll(50)
+        case .mode2:
+            miniDrone?.setYaw(50)
+        }
     }
     
     @IBAction func rollLeftTouchUp(_ sender: UIButton) {
-        miniDrone?.setFlag(0)
-        miniDrone?.setRoll(0)
+        switch mode {
+        case .mode1:
+            miniDrone?.setFlag(0)
+            miniDrone?.setRoll(0)
+        case .mode2:
+            miniDrone?.setYaw(0)
+        }
     }
 
     @IBAction func rollRightTouchUp(_ sender: UIButton) {
-        miniDrone?.setFlag(0)
-        miniDrone?.setRoll(0)
+        switch mode {
+        case .mode1:
+            miniDrone?.setFlag(0)
+            miniDrone?.setRoll(0)
+        case .mode2:
+            miniDrone?.setYaw(0)
+        }
     }
 
     @IBAction func pitchForwardTouchDown(_ sender: UIButton) {
-        miniDrone?.setFlag(1)
-        miniDrone?.setPitch(50)
+        switch mode {
+        case .mode1:
+            miniDrone?.setFlag(1)
+            miniDrone?.setPitch(50)
+        case .mode2:
+            miniDrone?.setGaz(50)
+        }
     }
 
     @IBAction func pitchBackTouchDown(_ sender: UIButton) {
-        miniDrone?.setFlag(1)
-        miniDrone?.setPitch(-50)
+        switch mode {
+        case .mode1:
+            miniDrone?.setFlag(1)
+            miniDrone?.setPitch(-50)
+        case .mode2:
+            miniDrone?.setGaz(-50)
+        }
     }
 
     @IBAction func pitchForwardTouchUp(_ sender: UIButton) {
-        miniDrone?.setFlag(0)
-        miniDrone?.setPitch(0)
+        switch mode {
+        case .mode1:
+            miniDrone?.setFlag(0)
+            miniDrone?.setPitch(0)
+        case .mode2:
+            miniDrone?.setGaz(0)
+        }
     }
 
     @IBAction func pitchBackTouchUp(_ sender: UIButton) {
-        miniDrone?.setFlag(0)
-        miniDrone?.setPitch(0)
+        switch mode {
+        case .mode1:
+            miniDrone?.setFlag(0)
+            miniDrone?.setPitch(0)
+        case .mode2:
+            miniDrone?.setGaz(0)
+        }
+    }
+    
+    @IBAction func configureClicked(_ sender: UIButton) {
+        performSegue(withIdentifier: CONFIGURE_SEGUE, sender: self)
     }
 }
 
