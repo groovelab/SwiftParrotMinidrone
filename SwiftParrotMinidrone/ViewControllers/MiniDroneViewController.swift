@@ -26,6 +26,7 @@ class MiniDroneViewController: UIViewController {
     @IBOutlet weak var videoView: H264VideoView!
 //    @IBOutlet weak var videoView: H264VideoView2!
     @IBOutlet weak var batteryLabel: UILabel!
+    @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var takeOffLandBt: UIButton!
     @IBOutlet weak var downloadMediasBt: UIButton!
 
@@ -364,10 +365,6 @@ extension MiniDroneViewController: MiniDroneDelegate {
         }
     }
 
-    func miniDrone(_ miniDrone: MiniDrone!, batteryDidChange batteryPercentage: Int32) {
-        batteryLabel.text = String(format: "%d%%", batteryPercentage)
-    }
-    
     func miniDrone(_ miniDrone: MiniDrone!, flyingStateDidChange state: eARCOMMANDS_MINIDRONE_PILOTINGSTATE_FLYINGSTATECHANGED_STATE) {
         switch state {
         case ARCOMMANDS_MINIDRONE_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_LANDED:
@@ -384,7 +381,11 @@ extension MiniDroneViewController: MiniDroneDelegate {
             downloadMediasBt.isEnabled = false
         }
     }
-    
+
+    func miniDrone(_ miniDrone: MiniDrone!, batteryDidChange batteryPercentage: Int32) {
+        batteryLabel.text = String(format: "%d%%", batteryPercentage)
+    }
+
     func miniDrone(_ miniDrone: MiniDrone!, configureDecoder codec: ARCONTROLLER_Stream_Codec_t) -> Bool {
         return videoView.configureDecoder(codec)
     }
@@ -445,5 +446,24 @@ extension MiniDroneViewController: MiniDroneDelegate {
                 self.downloadAlertController = nil
             })
         }
+    }
+    
+    func miniDrone(_ miniDrone: MiniDrone!, speedChanged speedX: Float, y speedY: Float, z speedZ: Float) {
+        //  speedX is front direction
+        //  speedY is side direction
+        //  speedX is vertical direction (rising is negative value)
+        print("speed : ", speedX , speedY, speedZ)
+        speedLabel.text = String(format: "x:%@%.1fm/s y:%@%.1fm/s z:%@%.1fm/s",
+                                 speedX < 0 ? "" : "+", (speedX * 10).rounded(.toNearestOrAwayFromZero) / 10,
+                                 speedY < 0 ? "" : "+", (speedY * 10).rounded(.toNearestOrAwayFromZero) / 10,
+                                 speedZ < 0 ? "" : "+", (speedZ * 10).rounded(.toNearestOrAwayFromZero) / 10)
+    }
+    
+    func miniDrone(_ miniDrone: MiniDrone!, altitude alt: Float) {
+        print("altitude : ", alt)
+    }
+    
+    func miniDrone(_ miniDrone: MiniDrone!, quaternionChanged qW: Float, x qX: Float, y qY: Float, z qZ: Float) {
+        print("quaternion : ", qW , qX, qY, qZ)
     }
 }
