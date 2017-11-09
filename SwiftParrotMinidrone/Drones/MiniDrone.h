@@ -20,20 +20,21 @@
 - (void)miniDrone:(MiniDrone*)miniDrone connectionDidChange:(eARCONTROLLER_DEVICE_STATE)state;
 
 /**
- * Called when the battery charge did change
- * Called on the main thread
- * @param MiniDrone the drone concerned
- * @param batteryPercent the battery remaining (in percent)
- */
-- (void)miniDrone:(MiniDrone*)miniDrone batteryDidChange:(int)batteryPercentage;
-
-/**
  * Called when the piloting state did change
  * Called on the main thread
  * @param miniDrone the drone concerned
  * @param batteryPercent the piloting state of the drone
  */
 - (void)miniDrone:(MiniDrone*)miniDrone flyingStateDidChange:(eARCOMMANDS_MINIDRONE_PILOTINGSTATE_FLYINGSTATECHANGED_STATE)state;
+
+@optional
+/**
+ * Called when the battery charge did change
+ * Called on the main thread
+ * @param MiniDrone the drone concerned
+ * @param batteryPercent the battery remaining (in percent)
+ */
+- (void)miniDrone:(MiniDrone*)miniDrone batteryDidChange:(int)batteryPercentage;
 
 /**
  * Called when the video decoder should be configured
@@ -76,6 +77,35 @@
  * @param mediaName the name of the media
  */
 - (void)miniDrone:(MiniDrone*)miniDrone mediaDownloadDidFinish:(NSString*)mediaName;
+
+/**
+ * Called when speed changed
+ * Called on the main thread
+ * @param MiniDrone the drone concerned
+ * @param x speed of x axis
+ * @param y speed of x axis
+ * @param z speed of x axis
+ */
+- (void)miniDrone:(MiniDrone*)miniDrone speedChanged:(float)x y:(float)y z:(float)z;
+
+/**
+ * Called when altitude changed
+ * Called on the main thread
+ * @param MiniDrone the drone concerned
+ * @param altitude
+ */
+- (void)miniDrone:(MiniDrone*)miniDrone altitude:(float)altitude;
+
+/**
+ * Called when quaternion changed
+ * Called on the main thread
+ * @param MiniDrone the drone concerned
+ * @param w quaternion of w
+ * @param x quaternion of x
+ * @param y quaternion of y
+ * @param z quaternion of z
+ */
+- (void)miniDrone:(MiniDrone*)miniDrone quaternionChanged:(float)w x:(float)x y:(float)y z:(float)z;
 
 @end
 

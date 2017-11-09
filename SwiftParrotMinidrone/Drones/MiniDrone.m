@@ -248,7 +248,9 @@ static void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTRO
     
     // if the command received is a battery state changed
     if ((commandKey == ARCONTROLLER_DICTIONARY_KEY_COMMON_COMMONSTATE_BATTERYSTATECHANGED) &&
-        (elementDictionary != NULL)) {
+        (elementDictionary != NULL) &&
+        [miniDrone.delegate respondsToSelector:@selector(miniDrone:batteryDidChange:)]) {
+
         ARCONTROLLER_DICTIONARY_ARG_t *arg = NULL;
         ARCONTROLLER_DICTIONARY_ELEMENT_t *element = NULL;
         
@@ -263,7 +265,7 @@ static void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTRO
             }
         }
     }
-    // if the command received is a battery state changed
+    // if the command received is a flying state changed
     else if ((commandKey == ARCONTROLLER_DICTIONARY_KEY_MINIDRONE_PILOTINGSTATE_FLYINGSTATECHANGED) &&
         (elementDictionary != NULL)) {
         ARCONTROLLER_DICTIONARY_ARG_t *arg = NULL;
@@ -297,35 +299,112 @@ static void onCommandReceived (eARCONTROLLER_DICTIONARY_KEY commandKey, ARCONTRO
             }
         }
     }
+
+    //  additional drone state information
+    // if the command received is speed changed
+    else if ((commandKey == ARCONTROLLER_DICTIONARY_KEY_MINIDRONE_NAVIGATIONDATASTATE_DRONESPEED) &&
+             (elementDictionary != NULL) &&
+             [miniDrone.delegate respondsToSelector:@selector(miniDrone:speedChanged:y:z:)]) {
+
+        ARCONTROLLER_DICTIONARY_ARG_t *arg = NULL;
+        ARCONTROLLER_DICTIONARY_ELEMENT_t *element = NULL;
+        
+        HASH_FIND_STR (elementDictionary, ARCONTROLLER_DICTIONARY_SINGLE_KEY, element);
+        if (element != NULL) {
+            HASH_FIND_STR (element->arguments, ARCONTROLLER_DICTIONARY_KEY_MINIDRONE_NAVIGATIONDATASTATE_DRONESPEED_SPEED_X, arg);
+            float speed_x = arg == NULL ? FLT_MAX : arg->value.Float;
+            
+            HASH_FIND_STR (element->arguments, ARCONTROLLER_DICTIONARY_KEY_MINIDRONE_NAVIGATIONDATASTATE_DRONESPEED_SPEED_Y, arg);
+            float speed_y = arg == NULL ? FLT_MAX : arg->value.Float;
+            
+            HASH_FIND_STR (element->arguments, ARCONTROLLER_DICTIONARY_KEY_MINIDRONE_NAVIGATIONDATASTATE_DRONESPEED_SPEED_Z, arg);
+            float speed_z = arg == NULL ? FLT_MAX : arg->value.Float;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [miniDrone.delegate miniDrone:miniDrone speedChanged:speed_x y:speed_y z:speed_z];
+            });
+        }
+    }
+    // if the command received is altitude changed
+    else if ((commandKey == ARCONTROLLER_DICTIONARY_KEY_MINIDRONE_NAVIGATIONDATASTATE_DRONEALTITUDE) &&
+             (elementDictionary != NULL) &&
+             [miniDrone.delegate respondsToSelector:@selector(miniDrone:altitude:)]) {
+
+        //  need to be with FPV camera
+        ARCONTROLLER_DICTIONARY_ARG_t *arg = NULL;
+        ARCONTROLLER_DICTIONARY_ELEMENT_t *element = NULL;
+
+        HASH_FIND_STR (elementDictionary, ARCONTROLLER_DICTIONARY_SINGLE_KEY, element);
+        if (element != NULL) {
+            HASH_FIND_STR (element->arguments, ARCONTROLLER_DICTIONARY_KEY_MINIDRONE_NAVIGATIONDATASTATE_DRONEALTITUDE_ALTITUDE, arg);
+            if (arg != NULL) {
+                float altitude = arg->value.Float;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [miniDrone.delegate miniDrone:miniDrone altitude:altitude];
+                });
+            }
+        }
+    }
+    // if the command received is quaternion changed
+    else if ((commandKey == ARCONTROLLER_DICTIONARY_KEY_MINIDRONE_NAVIGATIONDATASTATE_DRONEQUATERNION) &&
+             (elementDictionary != NULL) &&
+             [miniDrone.delegate respondsToSelector:@selector(miniDrone:quaternionChanged:x:y:z:)]) {
+
+        //  need to be with FPV camera
+        ARCONTROLLER_DICTIONARY_ARG_t *arg = NULL;
+        ARCONTROLLER_DICTIONARY_ELEMENT_t *element = NULL;
+
+        HASH_FIND_STR (elementDictionary, ARCONTROLLER_DICTIONARY_SINGLE_KEY, element);
+        if (element != NULL) {
+            HASH_FIND_STR (element->arguments, ARCONTROLLER_DICTIONARY_KEY_MINIDRONE_NAVIGATIONDATASTATE_DRONEQUATERNION_Q_W, arg);
+            float q_w = arg == NULL ? FLT_MAX : arg->value.Float;
+            
+            HASH_FIND_STR (element->arguments, ARCONTROLLER_DICTIONARY_KEY_MINIDRONE_NAVIGATIONDATASTATE_DRONEQUATERNION_Q_X, arg);
+            float q_x = arg == NULL ? FLT_MAX : arg->value.Float;
+            
+            HASH_FIND_STR (element->arguments, ARCONTROLLER_DICTIONARY_KEY_MINIDRONE_NAVIGATIONDATASTATE_DRONEQUATERNION_Q_Y, arg);
+            float q_y = arg == NULL ? FLT_MAX : arg->value.Float;
+            
+            HASH_FIND_STR (element->arguments, ARCONTROLLER_DICTIONARY_KEY_MINIDRONE_NAVIGATIONDATASTATE_DRONEQUATERNION_Q_Z, arg);
+            float q_z = arg == NULL ? FLT_MAX : arg->value.Float;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [miniDrone.delegate miniDrone:miniDrone quaternionChanged:q_w x:q_x y:q_y z:q_z];
+            });
+        }
+    }
 }
 
 static eARCONTROLLER_ERROR configDecoderCallback (ARCONTROLLER_Stream_Codec_t codec, void *customData) {
     MiniDrone *miniDrone = (__bridge MiniDrone*)customData;
-
-    BOOL success = [miniDrone.delegate miniDrone:miniDrone configureDecoder:codec];
-
-    return (success) ? ARCONTROLLER_OK : ARCONTROLLER_ERROR;
+    return [miniDrone.delegate respondsToSelector:@selector(miniDrone:configureDecoder:)] ?
+    ([miniDrone.delegate miniDrone:miniDrone configureDecoder:codec] ? ARCONTROLLER_OK : ARCONTROLLER_ERROR) :
+    ARCONTROLLER_OK;
 }
 
 static eARCONTROLLER_ERROR didReceiveFrameCallback (ARCONTROLLER_Frame_t *frame, void *customData) {
     MiniDrone *miniDrone = (__bridge MiniDrone*)customData;
-
-    BOOL success = [miniDrone.delegate miniDrone:miniDrone didReceiveFrame:frame];
-
-    return (success) ? ARCONTROLLER_OK : ARCONTROLLER_ERROR;
+    return [miniDrone.delegate respondsToSelector:@selector(miniDrone:didReceiveFrame:)] ?
+    ([miniDrone.delegate miniDrone:miniDrone didReceiveFrame:frame] ? ARCONTROLLER_OK : ARCONTROLLER_ERROR) :
+    ARCONTROLLER_OK;
 }
 
 #pragma mark SDCardModuleDelegate
 - (void)sdcardModule:(SDCardModule*)module didFoundMatchingMedias:(NSUInteger)nbMedias {
-    [_delegate miniDrone:self didFoundMatchingMedias:nbMedias];
+    if ([_delegate respondsToSelector:@selector(miniDrone:didFoundMatchingMedias:)]) {
+        [_delegate miniDrone:self didFoundMatchingMedias:nbMedias];
+    }
 }
 
 - (void)sdcardModule:(SDCardModule*)module media:(NSString*)mediaName downloadDidProgress:(int)progress {
-    [_delegate miniDrone:self media:mediaName downloadDidProgress:progress];
+    if ([_delegate respondsToSelector:@selector(miniDrone:downloadDidProgress:)]) {
+        [_delegate miniDrone:self media:mediaName downloadDidProgress:progress];
+    }
 }
 
 - (void)sdcardModule:(SDCardModule*)module mediaDownloadDidFinish:(NSString*)mediaName {
-    [_delegate miniDrone:self mediaDownloadDidFinish:mediaName];
+    if ([_delegate respondsToSelector:@selector(miniDrone:mediaDownloadDidFinish:)]) {
+        [_delegate miniDrone:self mediaDownloadDidFinish:mediaName];
+    }
 }
-
 @end
