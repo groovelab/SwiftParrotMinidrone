@@ -11,17 +11,18 @@ import UIKit
 class MiniDroneImageViewController: UIViewController {
     private let CONFIGURE_SEGUE = "configureSegue"
     private let stateSem: DispatchSemaphore = DispatchSemaphore(value: 0)
-    private let h264Decorder: H264Decorder = H264Decorder()
-
+    
     private var connectionAlertController: UIAlertController?
     private var downloadAlertController: UIAlertController?
     private var downloadProgressView: UIProgressView?
     private var miniDrone: MiniDrone?
+    private var h264Decorder: H264Decorder?
+    private var faceDetector: FaceDetector?
     private var nbMaxDownload = 0
     private var currentDownloadIndex = 0 // from 1 to nbMaxDownload
     private var isConfiguretion = false
     private var mode = Configure.Mode.mode1
-    
+
     var service: ARService?
     
     @IBOutlet weak var decodedImageView: UIImageView!
@@ -45,7 +46,10 @@ class MiniDroneImageViewController: UIViewController {
         miniDrone?.delegate = self
         miniDrone?.connect()
         
-        h264Decorder.delegate = self
+        h264Decorder = H264Decorder()
+        h264Decorder?.delegate = self
+        
+        faceDetector = FaceDetector()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -389,11 +393,11 @@ extension MiniDroneImageViewController: MiniDroneDelegate {
     }
     
     func miniDrone(_ miniDrone: MiniDrone!, configureDecoder codec: ARCONTROLLER_Stream_Codec_t) -> Bool {
-        return h264Decorder.configureDecoder(codec)
+        return h264Decorder?.configureDecoder(codec) ?? false
     }
     
     func miniDrone(_ miniDrone: MiniDrone!, didReceive frame: UnsafeMutablePointer<ARCONTROLLER_Frame_t>!) -> Bool {
-        return h264Decorder.didReceive(frame)
+        return h264Decorder?.didReceive(frame) ?? false
     }
     
     func miniDrone(_ miniDrone: MiniDrone!, didFoundMatchingMedias nbMedias: UInt) {
@@ -471,9 +475,22 @@ extension MiniDroneImageViewController: MiniDroneDelegate {
 }
 
 extension MiniDroneImageViewController: H264DecorderDelegate {
-    func h264Decorder(_ decorder:H264Decorder, didDecorde ciImage:CIImage) {
-        DispatchQueue.main.async {
-            self.decodedImageView.image = UIImage(ciImage: ciImage)
+    func h264Decorder(_ decorder: H264Decorder, didDecorde image: UIImage) {
+        guard let faceDetector = faceDetector else {
+            return
         }
+
+        DispatchQueue.global().async {
+            faceDetector.highlightFaces(for: image) { (resultImage) in
+                DispatchQueue.main.async {
+                    self.decodedImageView.image = resultImage
+                }
+            }
+        }
+
+//        DispatchQueue.main.async {
+//            self.decodedImageView.image = image
+//        }
     }
 }
+

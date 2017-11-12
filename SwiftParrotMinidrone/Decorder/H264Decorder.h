@@ -13,7 +13,7 @@
 
 @protocol H264DecorderDelegate <NSObject>
 
-- (void)h264Decorder:(H264Decorder*)decorder didDecorde:(CIImage*)ciImage;
+- (void)h264Decorder:(H264Decorder*)decorder didDecorde:(UIImage*)image;
 
 @end
 

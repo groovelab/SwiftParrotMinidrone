@@ -14,15 +14,13 @@
 
 @property (nonatomic, assign) VTDecompressionSessionRef decompressionSession;
 @property (nonatomic, assign) CMVideoFormatDescriptionRef formatDesc;
-@property (nonatomic, assign) int spsSize;
-@property (nonatomic, assign) int ppsSize;
 @property (nonatomic, assign) BOOL lastDecodeHasFailed;
 
 @end
 
 @implementation H264Decorder
 
-- (id) init {
+- (id)init {
     self = [super init];
     if (self) {
         [self customInit];
@@ -30,13 +28,18 @@
     return self;
 }
 
-- (void) customInit {
+- (void)customInit {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(decodingDidFail:)
                                                  name:AVSampleBufferDisplayLayerFailedToDecodeNotification object:nil];
 }
 
--(void) dealloc {
+- (void)dealloc {
+    if (NULL != _decompressionSession) {
+        VTDecompressionSessionInvalidate(_decompressionSession);
+        CFRelease(_decompressionSession);
+    }
+
     if (NULL != _formatDesc) {
         CFRelease(_formatDesc);
         _formatDesc = NULL;
@@ -45,7 +48,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name: AVSampleBufferDisplayLayerFailedToDecodeNotification object: nil];
 }
 
-- (BOOL) configureDecoder:(ARCONTROLLER_Stream_Codec_t)codec {
+- (BOOL)configureDecoder:(ARCONTROLLER_Stream_Codec_t)codec {
     OSStatus osstatus;
     NSError *error = nil;
     BOOL success = NO;
@@ -83,18 +86,21 @@
     return success;
 }
 
-- (BOOL) createDecompSession {
+- (BOOL)createDecompSession {
     _decompressionSession = NULL;
     VTDecompressionOutputCallbackRecord callBackRecord;
-    callBackRecord.decompressionOutputCallback = decompressionSessionDecodeFrameCallback;
+    callBackRecord.decompressionOutputCallback = H264DecorderDecompressionSessionDecodeFrameCallback;
     callBackRecord.decompressionOutputRefCon = (__bridge void *)self;
-    
+
 //    NSDictionary *destinationImageBufferAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],
 //                                                      (id)kCVPixelBufferOpenGLESCompatibilityKey, nil];
     
+    
     OSStatus status =  VTDecompressionSessionCreate(NULL, _formatDesc, NULL,
-                                                    NULL, // (__bridge CFDictionaryRef)(destinationImageBufferAttributes)
+                                                    NULL,
+//                                                    (__bridge CFDictionaryRef)(destinationImageBufferAttributes),
                                                     &callBackRecord, &_decompressionSession);
+    
     NSLog(@"Video Decompression Session Create: \t %@", (status == noErr) ? @"successful!" : @"failed...");
     if(status != noErr) {
         NSLog(@"\t\t VTD ERROR type: %d", (int)status);
@@ -104,24 +110,32 @@
     }
 }
 
-void decompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon,
-                                             void *sourceFrameRefCon,
-                                             OSStatus status,
-                                             VTDecodeInfoFlags infoFlags,
-                                             CVImageBufferRef imageBuffer,
-                                             CMTime presentationTimeStamp,
-                                             CMTime presentationDuration) {
-    H264Decorder *streamManager = (__bridge H264Decorder *)decompressionOutputRefCon;
+void H264DecorderDecompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon,
+                                                         void *sourceFrameRefCon,
+                                                         OSStatus status,
+                                                         VTDecodeInfoFlags infoFlags,
+                                                         CVImageBufferRef imageBuffer,
+                                                         CMTime presentationTimeStamp,
+                                                         CMTime presentationDuration) {
     
+    H264Decorder *streamManager = (__bridge H264Decorder *)decompressionOutputRefCon;
+
     if (status != noErr) {
         NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status userInfo:nil];
         NSLog(@"Decompressed error: %@", error);
     } else {
-        [streamManager.delegate h264Decorder:streamManager didDecorde:[CIImage imageWithCVImageBuffer:imageBuffer]];
+        CIImage *ciimage = [CIImage imageWithCVPixelBuffer:imageBuffer];
+        CIContext *context = [CIContext contextWithOptions:nil];
+        CGImageRef cgimage = [context createCGImage:ciimage
+                                           fromRect:CGRectMake(0, 0,
+                                                               CVPixelBufferGetWidth(imageBuffer),
+                                                               CVPixelBufferGetHeight(imageBuffer))];
+        [streamManager.delegate h264Decorder:streamManager didDecorde:[UIImage imageWithCGImage:cgimage]];
+        CGImageRelease(cgimage);
     }
 }
 
-- (BOOL) didReceive:(ARCONTROLLER_Frame_t *)frame {
+- (BOOL)didReceive:(ARCONTROLLER_Frame_t *)frame {
     BOOL success = !_lastDecodeHasFailed;
     
     if (success) {
@@ -167,9 +181,9 @@ void decompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon,
         if (success) {
             VTDecodeFrameFlags flags = kVTDecodeFrame_EnableAsynchronousDecompression;
             VTDecodeInfoFlags flagOut;
-            NSDate *currentTime = [NSDate date];
             VTDecompressionSessionDecodeFrame(_decompressionSession, sampleBufferRef, flags,
-                                              (void*)CFBridgingRetain(currentTime), &flagOut);
+                                              nil,
+                                              &flagOut);
         }
         
         // free memory
@@ -188,7 +202,7 @@ void decompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon,
     return success;
 }
 
-- (void) cleanFormatDesc {
+- (void)cleanFormatDesc {
     dispatch_sync(dispatch_get_main_queue(), ^{
         if (NULL != _formatDesc) {
             CFRelease(_formatDesc);
@@ -198,7 +212,7 @@ void decompressionSessionDecodeFrameCallback(void *decompressionOutputRefCon,
 }
 
 #pragma mark - notifications
-- (void) decodingDidFail:(NSNotification*)notification {
+- (void)decodingDidFail:(NSNotification*)notification {
     _lastDecodeHasFailed = YES;
 }
 
