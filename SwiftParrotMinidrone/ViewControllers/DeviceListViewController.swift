@@ -10,7 +10,8 @@ import UIKit
 
 class DeviceListViewController: UIViewController {
     private let MINIDRONE_SEGUE = "miniDroneSegue"
-    
+    private let MINIDRONE_IMAGE_SEGUE = "miniDroneImageSegue"
+
     @IBOutlet weak var tableView: UITableView!
 
     private let droneDiscoverer = DroneDiscoverer()
@@ -43,8 +44,11 @@ class DeviceListViewController: UIViewController {
         }
 
         if segue.identifier == MINIDRONE_SEGUE {
-            let miniDroneViewController: MiniDroneViewController = (segue.destination as? MiniDroneViewController)!
-            miniDroneViewController.service = arService
+            let viewController: MiniDroneViewController = (segue.destination as? MiniDroneViewController)!
+            viewController.service = arService
+        } else if segue.identifier == MINIDRONE_IMAGE_SEGUE {
+            let viewController: MiniDroneImageViewController = (segue.destination as? MiniDroneImageViewController)!
+            viewController.service = arService
         }
     }
     
@@ -117,7 +121,20 @@ extension DeviceListViewController: UITableViewDelegate {
              ARDISCOVERY_PRODUCT_MINIDRONE_EVO_LIGHT,
              ARDISCOVERY_PRODUCT_MINIDRONE_DELOS3:
             selectedService = arService
-            performSegue(withIdentifier: MINIDRONE_SEGUE, sender: self)
+            if arService.network_type == ARDISCOVERY_NETWORK_TYPE_NET {
+                let alert = UIAlertController(title:"Confirm", message: "Select type", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Video", style: .default, handler: {
+                    (action: UIAlertAction!) in
+                    self.performSegue(withIdentifier: self.MINIDRONE_SEGUE, sender: self)
+                }))
+                alert.addAction(UIAlertAction(title: "Image", style: .default, handler: {
+                    (action: UIAlertAction!) in
+                    self.performSegue(withIdentifier: self.MINIDRONE_IMAGE_SEGUE, sender: self)
+                }))
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                performSegue(withIdentifier: MINIDRONE_SEGUE, sender: self)
+            }
         default:
             print("not handled")
             break;

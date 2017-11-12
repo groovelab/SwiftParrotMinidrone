@@ -1,17 +1,17 @@
 //
-//  MiniDroneViewController.swift
+//  MiniDroneImageViewController.swift
 //  SwiftParrotMinidrone
 //
-//  Created by Groovelab on 2017/11/03.
-//  Copyright © 2017 Groovelab. All rights reserved.
+//  Created by ST14580 on 2017/11/12.
+//  Copyright © 2017年 ST14580. All rights reserved.
 //
 
 import UIKit
 
-class MiniDroneViewController: UIViewController {
+class MiniDroneImageViewController: UIViewController {
     private let CONFIGURE_SEGUE = "configureSegue"
     private let stateSem: DispatchSemaphore = DispatchSemaphore(value: 0)
-
+    
     private var connectionAlertController: UIAlertController?
     private var downloadAlertController: UIAlertController?
     private var downloadProgressView: UIProgressView?
@@ -20,27 +20,26 @@ class MiniDroneViewController: UIViewController {
     private var currentDownloadIndex = 0 // from 1 to nbMaxDownload
     private var isConfiguretion = false
     private var mode = Configure.Mode.mode1
-
+    
     var service: ARService?
-
-    @IBOutlet weak var videoView: H264VideoView!
-//    @IBOutlet weak var videoView: H264VideoView2!
+    
+    @IBOutlet weak var videoView: H264ImageView!
     @IBOutlet weak var batteryLabel: UILabel!
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var takeOffLandBt: UIButton!
     @IBOutlet weak var downloadMediasBt: UIButton!
-
+    
     @IBOutlet weak var yawLabel: UILabel!
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
-
+    
     @IBOutlet weak var rollLabel: UILabel!
     @IBOutlet weak var forwardButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         miniDrone = MiniDrone(service: service)
         miniDrone?.delegate = self
         miniDrone?.connect()
@@ -90,17 +89,17 @@ class MiniDroneViewController: UIViewController {
             isConfiguretion = false
             return
         }
-
+        
         connectionAlertController?.dismiss(animated: true, completion: nil)
         connectionAlertController = UIAlertController(title: service?.name ?? "", message: "Disconnecting ...", preferredStyle: .alert)
         if let connectionAlertController = connectionAlertController {
             present(connectionAlertController, animated: true, completion: nil)
         }
-
+        
         // in background, disconnect from the drone
         DispatchQueue.global(qos: .default).async {
             self.miniDrone?.disconnect()
-
+            
             // wait for the disconnection to appear
             let _ = self.stateSem.wait(timeout: .distantFuture)
             self.miniDrone = nil
@@ -196,9 +195,9 @@ class MiniDroneViewController: UIViewController {
             miniDrone?.setFlag(1)
             miniDrone?.setPitch(-50)
         }
-
+        
     }
-
+    
     @IBAction func gazUpTouchUp(_ sender: UIButton) {
         switch mode {
         case .mode1:
@@ -208,7 +207,7 @@ class MiniDroneViewController: UIViewController {
             miniDrone?.setPitch(0)
         }
     }
-
+    
     @IBAction func gazDownTouchUp(_ sender: UIButton) {
         switch mode {
         case .mode1:
@@ -218,7 +217,7 @@ class MiniDroneViewController: UIViewController {
             miniDrone?.setPitch(0)
         }
     }
-
+    
     @IBAction func yawLeftTouchDown(_ sender: UIButton) {
         switch mode {
         case .mode1:
@@ -238,7 +237,7 @@ class MiniDroneViewController: UIViewController {
             miniDrone?.setRoll(50)
         }
     }
-
+    
     @IBAction func yawLeftTouchUp(_ sender: UIButton) {
         switch mode {
         case .mode1:
@@ -248,7 +247,7 @@ class MiniDroneViewController: UIViewController {
             miniDrone?.setRoll(0)
         }
     }
-
+    
     @IBAction func yawRightTouchUp(_ sender: UIButton) {
         switch mode {
         case .mode1:
@@ -268,7 +267,7 @@ class MiniDroneViewController: UIViewController {
             miniDrone?.setYaw(-50)
         }
     }
-
+    
     @IBAction func rollRightTouchDown(_ sender: UIButton) {
         switch mode {
         case .mode1:
@@ -288,7 +287,7 @@ class MiniDroneViewController: UIViewController {
             miniDrone?.setYaw(0)
         }
     }
-
+    
     @IBAction func rollRightTouchUp(_ sender: UIButton) {
         switch mode {
         case .mode1:
@@ -298,7 +297,7 @@ class MiniDroneViewController: UIViewController {
             miniDrone?.setYaw(0)
         }
     }
-
+    
     @IBAction func pitchForwardTouchDown(_ sender: UIButton) {
         switch mode {
         case .mode1:
@@ -308,7 +307,7 @@ class MiniDroneViewController: UIViewController {
             miniDrone?.setGaz(50)
         }
     }
-
+    
     @IBAction func pitchBackTouchDown(_ sender: UIButton) {
         switch mode {
         case .mode1:
@@ -318,7 +317,7 @@ class MiniDroneViewController: UIViewController {
             miniDrone?.setGaz(-50)
         }
     }
-
+    
     @IBAction func pitchForwardTouchUp(_ sender: UIButton) {
         switch mode {
         case .mode1:
@@ -328,7 +327,7 @@ class MiniDroneViewController: UIViewController {
             miniDrone?.setGaz(0)
         }
     }
-
+    
     @IBAction func pitchBackTouchUp(_ sender: UIButton) {
         switch mode {
         case .mode1:
@@ -344,7 +343,7 @@ class MiniDroneViewController: UIViewController {
     }
 }
 
-extension MiniDroneViewController: MiniDroneDelegate {
+extension MiniDroneImageViewController: MiniDroneDelegate {
     func miniDrone(_ miniDrone: MiniDrone!, connectionDidChange state: eARCONTROLLER_DEVICE_STATE) {
         switch state {
         case ARCONTROLLER_DEVICE_STATE_RUNNING:
@@ -364,7 +363,7 @@ extension MiniDroneViewController: MiniDroneDelegate {
             break
         }
     }
-
+    
     func miniDrone(_ miniDrone: MiniDrone!, flyingStateDidChange state: eARCOMMANDS_MINIDRONE_PILOTINGSTATE_FLYINGSTATECHANGED_STATE) {
         switch state {
         case ARCOMMANDS_MINIDRONE_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_LANDED:
@@ -381,11 +380,11 @@ extension MiniDroneViewController: MiniDroneDelegate {
             downloadMediasBt.isEnabled = false
         }
     }
-
+    
     func miniDrone(_ miniDrone: MiniDrone!, batteryDidChange batteryPercentage: Int32) {
         batteryLabel.text = String(format: "%d%%", batteryPercentage)
     }
-
+    
     func miniDrone(_ miniDrone: MiniDrone!, configureDecoder codec: ARCONTROLLER_Stream_Codec_t) -> Bool {
         return videoView.configureDecoder(codec)
     }
@@ -393,7 +392,7 @@ extension MiniDroneViewController: MiniDroneDelegate {
     func miniDrone(_ miniDrone: MiniDrone!, didReceive frame: UnsafeMutablePointer<ARCONTROLLER_Frame_t>!) -> Bool {
         return videoView.displayFrame(frame)
     }
-
+    
     func miniDrone(_ miniDrone: MiniDrone!, didFoundMatchingMedias nbMedias: UInt) {
         nbMaxDownload = Int(nbMedias)
         currentDownloadIndex = 1
@@ -436,7 +435,7 @@ extension MiniDroneViewController: MiniDroneDelegate {
         let currentProgress = Float(progress) / 100 / Float(nbMaxDownload)
         downloadProgressView?.progress = completedProgress + currentProgress
     }
-
+    
     func miniDrone(_ miniDrone: MiniDrone!, mediaDownloadDidFinish mediaName: String!) {
         currentDownloadIndex += 1
         
