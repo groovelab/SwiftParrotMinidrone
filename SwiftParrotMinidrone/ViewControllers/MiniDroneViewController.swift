@@ -23,8 +23,11 @@ class MiniDroneViewController: UIViewController {
 
     var service: ARService?
 
-    @IBOutlet weak var videoView: H264VideoView!
+//    @IBOutlet weak var videoView: H264VideoView!
 //    @IBOutlet weak var videoView: H264VideoView2!
+    
+    @IBOutlet weak var videoView: H264ImageView!
+    
     @IBOutlet weak var batteryLabel: UILabel!
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var takeOffLandBt: UIButton!

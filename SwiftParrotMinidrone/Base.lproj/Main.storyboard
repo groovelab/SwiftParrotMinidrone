@@ -84,7 +84,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qFN-Sg-YcB" customClass="H264VideoView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qFN-Sg-YcB" customClass="H264ImageView">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -514,7 +514,7 @@
                         <outlet property="speedLabel" destination="1h6-YO-Gvj" id="d9o-Wb-MwA"/>
                         <outlet property="takeOffLandBt" destination="JEf-w6-Bge" id="oFk-bG-6n5"/>
                         <outlet property="upButton" destination="E2N-V4-hye" id="WGa-oy-YyX"/>
-                        <outlet property="videoView" destination="qFN-Sg-YcB" id="uBS-7v-Q5u"/>
+                        <outlet property="videoView" destination="qFN-Sg-YcB" id="lIG-wC-uHX"/>
                         <outlet property="yawLabel" destination="6jZ-tv-MN6" id="9xt-Nd-Crj"/>
                         <segue destination="Jrw-uG-4xq" kind="show" identifier="configureSegue" id="cdn-l9-dwl"/>
                     </connections>

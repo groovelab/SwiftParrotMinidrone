@@ -21,6 +21,7 @@
 		0E1AB8C81FACA890002520F9 /* DroneDiscoverer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8C71FACA890002520F9 /* DroneDiscoverer.swift */; };
 		0E1AB8CA1FADB154002520F9 /* H264VideoView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8C91FADB154002520F9 /* H264VideoView2.swift */; };
 		0E1AB8CB1FAF827F002520F9 /* H264VideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E1AB8BF1FAC34CD002520F9 /* H264VideoView.m */; };
+		0E6971281FB7539400C02FC3 /* H264ImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6971271FB7539400C02FC3 /* H264ImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,8 @@
 		0E1AB8C51FAC35EA002520F9 /* SDCardModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDCardModule.h; sourceTree = "<group>"; };
 		0E1AB8C71FACA890002520F9 /* DroneDiscoverer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroneDiscoverer.swift; sourceTree = "<group>"; };
 		0E1AB8C91FADB154002520F9 /* H264VideoView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H264VideoView2.swift; sourceTree = "<group>"; };
+		0E6971271FB7539400C02FC3 /* H264ImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = H264ImageView.m; sourceTree = "<group>"; };
+		0E6971291FB753A900C02FC3 /* H264ImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = H264ImageView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +138,8 @@
 				0E1AB8BE1FAC34CC002520F9 /* H264VideoView.h */,
 				0E1AB8BF1FAC34CD002520F9 /* H264VideoView.m */,
 				0E1AB8C91FADB154002520F9 /* H264VideoView2.swift */,
+				0E6971291FB753A900C02FC3 /* H264ImageView.h */,
+				0E6971271FB7539400C02FC3 /* H264ImageView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -213,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E6971281FB7539400C02FC3 /* H264ImageView.m in Sources */,
 				0E1AB8B61FAC2C54002520F9 /* MiniDroneViewController.swift in Sources */,
 				0E1AB8C31FAC34DB002520F9 /* MiniDrone.m in Sources */,
 				0E1AB89D1FAC1B5B002520F9 /* AppDelegate.swift in Sources */,

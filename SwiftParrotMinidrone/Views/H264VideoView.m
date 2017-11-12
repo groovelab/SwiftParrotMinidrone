@@ -15,8 +15,8 @@
 @property (nonatomic, assign) int ppsSize;
 @property (nonatomic, assign) BOOL canDisplayVideo;
 @property (nonatomic, assign) BOOL lastDecodeHasFailed;
-
 @end
+
 @implementation H264VideoView
 
 - (id)init {
@@ -121,21 +121,6 @@
 
 - (BOOL)displayFrame:(ARCONTROLLER_Frame_t *)frame
 {
-    /*
-     frame    ARCONTROLLER_Frame_t *    0x1c028e060    0x00000001c028e060
-     data    uint8_t *    ""    0x0000000107208000
-     capacity    uint32_t    60000
-     used    uint32_t    10599
-     missed    uint32_t    0
-     width    uint32_t    0
-     height    uint32_t    0
-     timestamp    uint64_t    19083504856
-     isIFrame    int    1
-     available    int    0
-     base    uint8_t *    ""    0x0000000107208000
-     metadata    uint8_t *    NULL    0x0000000000000000
-     metadataSize    int    0
-     */
     BOOL success = !_lastDecodeHasFailed;
     
     if (success && _canDisplayVideo) {
@@ -155,7 +140,6 @@
         
         if (success) {
             osstatus  = CMBlockBufferCreateWithMemoryBlock(CFAllocatorGetDefault(), frame->data, frame->used, kCFAllocatorNull, NULL, 0, frame->used, 0, &blockBufferRef);
-            //  blockBufferRef    CMBlockBufferRef    0x1c011e330    0x00000001c011e330
             if (osstatus != kCMBlockBufferNoErr) {
                 error = [NSError errorWithDomain:NSOSStatusErrorDomain
                                             code:osstatus
@@ -167,10 +151,8 @@
         }
         
         if (success) {
-            const size_t sampleSize = frame->used;      //  sampleSize    size_t    11990
-            osstatus = CMSampleBufferCreate(kCFAllocatorDefault, blockBufferRef, true, NULL, NULL, _formatDesc, 1, 0, NULL, 1, &sampleSize, &sampleBufferRef);  //  sampleBufferRef    CMSampleBufferRef    0x12bd2e0c0    0x000000012bd2e0c0
-//            blockBufferRef    CMBlockBufferRef    0x1c03068a0    0x00000001c03068a0
-            //sampleSize    size_t    11990
+            const size_t sampleSize = frame->used;
+            osstatus = CMSampleBufferCreate(kCFAllocatorDefault, blockBufferRef, true, NULL, NULL, _formatDesc, 1, 0, NULL, 1, &sampleSize, &sampleBufferRef);
             if (osstatus != noErr) {
                 success = NO;
                 error = [NSError errorWithDomain:NSOSStatusErrorDomain
@@ -184,19 +166,7 @@
         if (success) {
             // add the attachment which says that sample should be displayed immediately
             CFArrayRef attachments = CMSampleBufferGetSampleAttachmentsArray(sampleBufferRef, YES);
-            /*
-             attachments    CFArrayRef    @"1 element"    0x00000001c000f0b0
-             [0]    __NSCFDictionary *    0x1c0661240    0x00000001c0661240
-             NSMutableDictionary    NSMutableDictionary
-             _cfinfo    unsigned char [4]    "\x80\x12"
-             _rc    unsigned int    1
-             _bits    unsigned int [4]
-             _callbacks    void *    0x501004004010    0x0000501004004010
-             _values    id *    NULL    0x0000000000000000
-             _keys    id *    NULL    0x0000000000000000
-             */
             CFMutableDictionaryRef dict = (CFMutableDictionaryRef)CFArrayGetValueAtIndex(attachments, 0);
-            //  dict    CFMutableDictionaryRef    0x1c0661240    0x00000001c0661240
             CFDictionarySetValue(dict, kCMSampleAttachmentKey_DisplayImmediately, kCFBooleanTrue);
         }
         
@@ -204,9 +174,8 @@
             [_videoLayer status] != AVQueuedSampleBufferRenderingStatusFailed &&
             _videoLayer.isReadyForMoreMediaData) {
             dispatch_sync(dispatch_get_main_queue(), ^{
-                if (_canDisplayVideo)
-                {
-                    [_videoLayer enqueueSampleBuffer:sampleBufferRef];  //  sampleBufferRef    CMSampleBufferRef    0x12bd2e0c0    0x000000012bd2e0c0
+                if (_canDisplayVideo) {
+                    [_videoLayer enqueueSampleBuffer:sampleBufferRef];
                 }
             });
         }
