@@ -11,7 +11,8 @@ import UIKit
 class MiniDroneImageViewController: UIViewController {
     private let CONFIGURE_SEGUE = "configureSegue"
     private let stateSem: DispatchSemaphore = DispatchSemaphore(value: 0)
-    
+    private let h264Decorder: H264Decorder = H264Decorder()
+
     private var connectionAlertController: UIAlertController?
     private var downloadAlertController: UIAlertController?
     private var downloadProgressView: UIProgressView?
@@ -23,7 +24,7 @@ class MiniDroneImageViewController: UIViewController {
     
     var service: ARService?
     
-    @IBOutlet weak var videoView: H264ImageView!
+    @IBOutlet weak var decodedImageView: UIImageView!
     @IBOutlet weak var batteryLabel: UILabel!
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var takeOffLandBt: UIButton!
@@ -43,6 +44,8 @@ class MiniDroneImageViewController: UIViewController {
         miniDrone = MiniDrone(service: service)
         miniDrone?.delegate = self
         miniDrone?.connect()
+        
+        h264Decorder.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -386,11 +389,11 @@ extension MiniDroneImageViewController: MiniDroneDelegate {
     }
     
     func miniDrone(_ miniDrone: MiniDrone!, configureDecoder codec: ARCONTROLLER_Stream_Codec_t) -> Bool {
-        return videoView.configureDecoder(codec)
+        return h264Decorder.configureDecoder(codec)
     }
     
     func miniDrone(_ miniDrone: MiniDrone!, didReceive frame: UnsafeMutablePointer<ARCONTROLLER_Frame_t>!) -> Bool {
-        return videoView.displayFrame(frame)
+        return h264Decorder.didReceive(frame)
     }
     
     func miniDrone(_ miniDrone: MiniDrone!, didFoundMatchingMedias nbMedias: UInt) {
@@ -464,5 +467,13 @@ extension MiniDroneImageViewController: MiniDroneDelegate {
     
     func miniDrone(_ miniDrone: MiniDrone!, quaternionChanged qW: Float, x qX: Float, y qY: Float, z qZ: Float) {
         print("quaternion : ", qW , qX, qY, qZ)
+    }
+}
+
+extension MiniDroneImageViewController: H264DecorderDelegate {
+    func h264Decorder(_ decorder:H264Decorder, didDecorde ciImage:CIImage) {
+        DispatchQueue.main.async {
+            self.decodedImageView.image = UIImage(ciImage: ciImage)
+        }
     }
 }
